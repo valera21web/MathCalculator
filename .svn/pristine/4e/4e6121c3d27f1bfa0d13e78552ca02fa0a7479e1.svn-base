@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Varel Calculator</string>
+    <string name="app_name_abr">VC</string>
+    <string name="emptyHistory">You history is empty!</string>
+
+   <string name="buttonC">C</string>
+   <string name="buttonDel">DEL</string>
+
+	<color name="tableBackground">#333</color>
+	<color name="tabBackground">#333</color>
+	
+	<color name="appBackgroundStart11">#079</color>
+	<color name="appBackgroundEnd11">#079</color>
+	<color name="appBackgroundStart12">#55A</color>
+	<color name="appBackgroundEnd12">#55A</color>
+	
+	<color name="editBackgroundStart11">#00AACC</color>
+	<color name="editBackgroundEnd11">#0088BB</color>
+	<color name="editBackgroundStart12">#1199BB</color>
+	<color name="editBackgroundEnd12">#0099CC</color>
+	
+	<color name="buttonBackgroundAnsStart11">#AACC11</color>
+	<color name="buttonBackgroundAnsEnd11">#889911</color>
+	<color name="buttonBackgroundAnsStart12">#88AA00</color>
+	<color name="buttonBackgroundAnsEnd12">#557700</color>
+	
+	<color name="buttonBackgroundStart11">#99CC55</color>
+	<color name="buttonBackgroundEnd11">#AAFF66</color>
+	<color name="buttonBackgroundStart12">#999955</color>
+	<color name="buttonBackgroundEnd12">#AAFF66</color>
+	
+	<color name="EditTextColor">#000000</color>
+	
+	<dimen name="EditTextSize">25dp</dimen>
+	<dimen name="EditTextSize2">20dp</dimen>
+	<dimen name="EditTextSize3">15dp</dimen>
+	<dimen name="EditTextSize4">10dp</dimen>
+	
+	<dimen name="ButtonTextSize">20dp</dimen>
+	<dimen name="ButtonAnsTextSize">30dp</dimen>
+	
+	<dimen name="height_button3">65dp</dimen>
+	<dimen name="height_button3_b">65dp</dimen>
+	<dimen name="width_button3">80dp</dimen>
+	<dimen name="width_button3_1">76dp</dimen>
+	<dimen name="button3_text_size_b">40dp</dimen>
+	<dimen name="button3_text_size">25dp</dimen>
+	
+</resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!--
+       FINISHED
+   -->
+   <dimen name="paddingLeftApplicationNameTop">200dp</dimen>
+
+   <dimen name="topLayoutWight">380dp</dimen>
+   <dimen name="topLayoutHeight">120dp</dimen>
+
+   <dimen name="inputMathStringWidth">380dp</dimen>
+   <dimen name="inputMathStringHeight">60dp</dimen>
+
+   <dimen name="buttonTopMenuCHeight">60dp</dimen>
+   <dimen name="buttonTopMenuCWidth">60dp</dimen>
+   <dimen name="buttonTopMenuDelHeight">60dp</dimen>
+   <dimen name="buttonTopMenuDelWidth">60dp</dimen>
+
+   <dimen name="outInputResultMathStringHeight">60dp</dimen>
+   <dimen name="outInputResultMathStringWidth">265dp</dimen>
+
+   <dimen name="buttonKeyboardWidth">95dp</dimen>
+   <dimen name="buttonKeyboardHeight">95dp</dimen>
+
+   <dimen name="editTextPaddingLeft">10dp</dimen>
+   <dimen name="editTextPaddingTop">10dp</dimen>
+   <dimen name="editTextSizeText">32dp</dimen>
+
+   <dimen name="viewAnswerPaddingLeft">5dp</dimen>
+   <dimen name="viewAnswerPaddingTop">10dp</dimen>
+   <dimen name="viewAnswerSizeText">20dp</dimen>
+
+   <dimen name="buttonTopSizeText">30dp</dimen>
+   <dimen name="buttonKeyboardNumber">35dp</dimen>
+   <dimen name="buttonKeyboardWords">30dp</dimen>
+   <dimen name="buttonKeyboardOperators">35dp</dimen>
+
+   <dimen name="buttonKeyboard6PaddingTop">10dp</dimen>
+
+
+   <string-array name="sizeTextMathString">
+      <item>12</item>
+      <item>14</item>
+      <item>16</item>
+      <item>20</item>
+      <item>25</item>
+      <item>32</item>
+   </string-array>
+
+</resources>

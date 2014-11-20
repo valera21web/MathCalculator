@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+   <color name="textColorApplicationName">#FFFDFD</color>
+
+   <color name="backgroundColorHistoryListStart">#99CC55</color>
+   <color name="backgroundColorHistoryListEnd">#99CC55</color>
+   <color name="backgroundColorHistoryListPressStart">#99CC55</color>
+   <color name="backgroundColorHistoryListPressEnd">#99CC55</color>
+
+   <color name="backgroundColorFunctionsListItem">#99CC55</color>
+   <color name="backgroundColorFunctionsListButton">#99CC55</color>
+
+
+   <color name="colorTextButtonKeyboard">#000000</color>
+   <color name="colorTextInputMathString">#000000</color>
+
+
+   <color name="backgroundColorButtonHistoryClearStart">#99CC55</color>
+   <color name="backgroundColorButtonHistoryClearEnd">#AAFF66</color>
+   <color name="backgroundColorButtonHistoryClearPressStart">#999955</color>
+   <color name="backgroundColorButtonHistoryClearPressEnd">#AAFF66</color>
+
+
+   <color name="backgroundColorErrorMessage">#FF5555</color>
+   <color name="colorTextErrorMessage">#FFFFFF</color>
+   <color name="backgroundColorInfoMessage">#5555FF</color>
+   <color name="colorTextInfoMessage">#FFFFFF</color>
+
+</resources>

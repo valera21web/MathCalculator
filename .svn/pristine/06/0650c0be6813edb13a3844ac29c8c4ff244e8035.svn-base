@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translate
+ xmlns:android="http://schemas.android.com/apk/res/android"
+ android:fromXDelta="0"  
+ android:toXDelta="-100"
+ android:fromYDelta="0"
+ android:toYDelta="0"
+ android:duration="1000">
+</translate>
+<!-- 
+перемещение с -150 относительно текущей позиции по оси X и -200 по оси Y 
+в текущую позицию (0,0). Продолжительность – 3 сек.
+-->

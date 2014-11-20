@@ -1,0 +1,52 @@
+package com.app.calculator;
+
+public class Variables {
+
+   public static final String stackTemplate = "0v";
+
+   public static final String charStrPlus = "+";
+   public static final int charIntPlus = 43;
+
+   public static final String charStrMinus = "-";
+   public static final int charIntLMinus = 44;
+
+   public static final String charStrLeftBracket = "(";
+   public static final int charIntLeftBracket = 40;
+
+   public static final String charStrRightBracket = ")";
+   public static int charIntRightBracket = 41;
+
+   public static final String charStrFactorial = "!";
+   public static int charIntFactorial = 33;
+
+   public static final String charStrModulo = "%";
+   public static final int charIntModulo = 38;
+
+   public static final String charStrMultiplication = "*";
+   public static final int charIntMultiplication = 42;
+
+   public static final String charStrDivision = "/";
+   public static final int charIntDivision = 47;
+
+   public static final String charStrDegree = "^";
+   public static final int charIntDegree = 94;
+
+
+
+   public static final String functionASin = "asin";
+   public static final String functionSin = "sin";
+   public static final String functionACos = "acos";
+   public static final String functionCos = "cos";
+   public static final String functionATan = "atan";
+   public static final String functionTan = "tan";
+   public static final String functionLog = "log";
+   public static final String functionLg = "lg";
+   public static final String functionLn = "ln";
+   public static final String functionExp = "exp";
+   public static final String functionAbs = "abs";
+
+
+   public static final String varPi = "Pi";
+   public static final String varE = "E";
+
+}

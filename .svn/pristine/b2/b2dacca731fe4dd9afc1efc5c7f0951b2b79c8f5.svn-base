@@ -1,0 +1,40 @@
+            
+            
+			/* ^
+			if((int)strChar[t] != 41){
+				for(i = t; i>=0; --i){
+					if(!Search.InArray(strChar[i],strCharP))
+						key = i;
+					else
+						break;
+				}
+			}else{
+				int count = 1;
+				for(i = t-1;count > 0 && i>=0; --i){
+					if((int)strChar[i] == 41) ++count;
+					else if((int)strChar[i] == 40) --count;
+						 else  key = i;
+				}
+				korId = -1;
+			}
+			*/
+            /* ^
+			if((int)strChar[t] != 40){
+				for(int j = t; j<str.length(); ++j){
+					if(!Search.InArray(strChar[j],strCharP))
+						key = j;
+					else
+						break;
+				}
+				step = str.substring(str.indexOf('^')+1,key+1);
+			}else{
+				int count = 1;
+				for(i = t+1;count > 0 && i < str.length(); ++i){
+					if((int)strChar[i] == 41) --count;
+					else if((int)strChar[i] == 40) ++count;
+						 else  key = i;
+				}
+				korId = 1;
+				step = str.substring(str.indexOf('^')+2,key+1);
+			}
+			*/

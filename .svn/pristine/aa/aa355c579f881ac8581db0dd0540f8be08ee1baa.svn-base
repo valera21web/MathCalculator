@@ -1,0 +1,672 @@
+package org.varel.calculator;
+
+import java.util.ArrayList;
+import java.util.List;
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.text.InputType;
+import android.util.Log;
+import android.view.*;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import org.varel.calculator.DB.DB;
+import org.varel.calculator.DB.Read.DBRead;
+import org.varel.calculator.DB.Write.DBWrite;
+import org.varel.calculator.MathCalculator.Calculator;
+
+
+public class AndriodCalculatorActivity extends Activity implements OnClickListener, OnLongClickListener, OnItemClickListener {
+
+	public static final int ID_SET_ANS = 101; 
+	public static final int ID_SET_MATH_STR = 102;
+	public static final int ID_ADD_MATH_STR = 103;
+	public static final int ID_DELETE_MATH_STR = 104;
+	public static final int ID_CLEAR_BUTTON_OK = 201;
+	public static final int ID_CLEAR_BUTTON_CANCEL = 202;
+	public static String menu_math_str = "";
+	public static String menu_math_ans = "";
+
+   public Calculator WorkSpace;
+   public ViewPager viewPager;
+   private DBWrite db_write;
+   private DBRead db_read;
+   private String saveLastMathStr = "";
+
+   private String MS = "";
+   
+    // list function
+   private Button buttonExp;
+   private Button buttonSin;
+   private Button buttonAsin;
+   private Button buttonCos;
+   private Button buttonAcos;
+   private Button buttonTan;
+   private Button buttonAtan;
+   private Button buttonLog;
+   private Button buttonLn;
+   private Button buttonLg;
+   //finish list function
+    
+	// central Keyboard
+	private EditText editText;
+	private TextView textViewResult;
+	private Button buttonC;
+	private Button buttonDelC;
+	private Button button0;
+	private Button button1;
+	private Button button2;
+	private Button button3;
+	private Button button4;
+	private Button button5;
+	private Button button6;
+	private Button button7;
+	private Button button8;
+	private Button button9;
+	
+	private Button buttonE;
+	private Button buttonFact;
+	private Button buttonPi;
+	private Button buttonStep;
+	private Button buttonDiv;
+	private Button buttonMult;
+	private Button buttonPlus;
+	private Button buttonMinus;
+	private Button buttonBracket;
+	private Button buttonPoint;
+	//end central KeyBoard
+	
+	// history list
+	private ListView history_list;
+	private Button buttonClearDB;
+	// end history list
+
+   @Override
+   public void onCreate(Bundle savedInstanceState) {
+    	super.onCreate(savedInstanceState);
+      requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+      WorkSpace = new Calculator(this);
+      db_write = new DBWrite(this);
+      db_read = new DBRead(this);
+
+      viewPager = new ViewPager(this);
+        
+ 		LayoutInflater inflater = LayoutInflater.from(this);
+      List<View> pages = new ArrayList<View>();
+
+      View page;
+      if(V.PAGE_HISTORY_SHOW) {
+         page = inflater.inflate(R.layout.function_list, null);
+         this.variable(page, V.PAGE_FUNCTIONS);
+         pages.add(V.PAGE_FUNCTIONS_ID, page);
+      }
+      if(V.PAGE_INDEX_SHOW) {
+         page = inflater.inflate(R.layout.main, null);
+         this.variable(page, V.PAGE_INDEX);
+         pages.add(V.PAGE_INDEX_ID, page);
+      }
+
+      if(V.PAGE_HISTORY_SHOW) {
+         page = inflater.inflate(R.layout.history_list, null);
+         this.variable(page, V.PAGE_HISTORY);
+         pages.add(V.PAGE_HISTORY_ID, page);
+      }
+      if(V.PAGE_ABOUT_US_SHOW) {
+         page = inflater.inflate(R.layout.about_us, null);
+         this.variable(page, V.PAGE_ABOUT_US);
+         pages.add(V.PAGE_ABOUT_US_ID, page);
+      }
+        
+        
+      SamplePagerAdapter pagerAdapter = new SamplePagerAdapter(pages);
+        
+      viewPager.setAdapter(pagerAdapter);
+      viewPager.setCurrentItem(V.PAGE_ACTIVE);
+        
+      setContentView(viewPager);
+      setResult();
+
+ 	   WorkSpace.initHistoryList(V.SIZE_HISTORY_ACTIVE_LIST);
+ 	   WorkSpace.getHistoryList(history_list, V.SIZE_HISTORY_LIST);
+   }
+
+   @Override
+   public void onStart() {
+      super.onStart();
+   }
+
+   @Override
+   public void onResume() {
+      super.onResume();
+      try {
+         String query = "" +
+                 "SELECT " + DB.MATH_STR + " " +
+                 "FROM " + DB.TABLE_NAME_LAST_MATH_STRING + " " +
+                 "LIMIT 1" +
+                 "";
+         List<ContentValues> list = db_read.Query(query, new String[] {DB.MATH_STR}, new String[] {V.TYPE_STRING});
+         if(list.size() > 0) {
+            saveLastMathStr = list.get(0).getAsString(DB.MATH_STR);
+            editText.setText(saveLastMathStr);
+            setResult(true);
+            db_write.delete(DB.TABLE_NAME_LAST_MATH_STRING);
+         }
+      } catch (Error E) {
+         Log.e(V.LOG_DB_TEST, V.ERROR + ": " + E);
+      }
+   }
+
+   @Override
+   public void onPause() {
+      super.onPause();
+      saveLastMathStr = editText.getText().toString();
+      if(saveLastMathStr.length() > 0) {
+         db_write.Insert(DB.TABLE_NAME_LAST_MATH_STRING, DB.MATH_STR, saveLastMathStr);
+      }
+   }
+
+   @Override
+   public void onRestart() {
+      super.onRestart();
+   }
+
+   @Override
+   public void onStop() {
+      super.onStop();
+   }
+
+   public void setResult() {
+      setResult(false);
+   }
+
+   public void setResult(boolean changeSelection) {
+      String res = WorkSpace.ans(editText.getText().toString(), editText);
+      if(res != V.ERROR) {
+         textViewResult.setText(res);
+         if(changeSelection) {
+            editText.setSelection(editText.getText().toString().length());
+         }
+      } else {
+         textViewResult.setText(V.DEFAULT_RESULT);
+      }
+   }
+    
+
+   public void onClick(View v) {
+      boolean canAnswer = true;
+      boolean canSaveToHistory = false;
+      String saveMathStr = "";
+      int SelectStart = editText.getSelectionStart();
+      int SelectEnd = editText.getSelectionEnd();
+      String str = editText.getText().toString();
+      editText.setError(null);
+      switch (v.getId()) {
+
+         case R.id.buttonC:
+            saveMathStr = editText.getText().toString();
+            editText.setText(V.EMPTY_RESULT);
+            canSaveToHistory = true;
+            break;
+
+         case R.id.buttonDelc:
+            if(SelectStart > 0) {
+               if(SelectStart == SelectEnd) {
+                  editText.setText(str.substring(0,SelectStart - 1) + str.substring(SelectStart, str.length()));
+               } else {
+                  editText.setText(str.substring(0,SelectStart - 1) + str.substring(SelectEnd, str.length()));
+               }
+               editText.setSelection(SelectStart - 1);
+            } else if(SelectStart == 0 && SelectStart != SelectEnd) {
+               editText.setText(str.substring(SelectEnd, str.length()));
+               editText.setSelection(0);
+            }
+            break;
+
+         case R.id.button0:
+            this.AddChar("0", SelectStart, SelectEnd);
+           break;
+
+         case R.id.button1:
+            this.AddChar("1", SelectStart, SelectEnd);
+           break;
+
+         case R.id.button2:
+            this.AddChar("2", SelectStart, SelectEnd);
+           break;
+
+         case R.id.button3:
+            this.AddChar("3", SelectStart, SelectEnd);
+           break;
+
+         case R.id.button4:
+            this.AddChar("4", SelectStart, SelectEnd);
+           break;
+
+         case R.id.button5:
+            this.AddChar("5", SelectStart, SelectEnd);
+           break;
+
+         case R.id.button6:
+            this.AddChar("6", SelectStart, SelectEnd);
+           break;
+
+         case R.id.button7:
+            this.AddChar("7", SelectStart, SelectEnd);
+           break;
+
+         case R.id.button8:
+            this.AddChar("8", SelectStart, SelectEnd);
+           break;
+
+         case R.id.button9:
+            this.AddChar("9", SelectStart, SelectEnd);
+           break;
+
+         case R.id.buttonE:
+            this.AddChar(V.VAR_E, SelectStart, SelectEnd);
+           break;
+
+         case R.id.buttonPi:
+            this.AddChar(V.VAR_PI, SelectStart, SelectEnd);
+           break;
+
+         case R.id.buttonFact:
+            this.AddChar(V.CHAR_STR_FACTORIAL, SelectStart, SelectEnd);
+            break;
+			
+			case R.id.buttonStep:
+				this.AddChar(V.CHAR_STR_DEGREE, SelectStart, SelectEnd);
+			   break;
+
+			case R.id.buttonMult:
+				this.AddChar(V.CHAR_STR_MULTIPLICATION, SelectStart, SelectEnd);
+			   break;
+
+			case R.id.buttonDiv:
+				this.AddChar(V.CHAR_STR_DIVISION, SelectStart, SelectEnd);
+			   break;
+
+			case R.id.buttonPlus:
+				this.AddChar(V.CHAR_STR_PLUS, SelectStart, SelectEnd);
+			   break;
+
+			case R.id.buttonMinus:
+				this.AddChar(V.CHAR_STR_MINUS, SelectStart, SelectEnd);
+			   break;
+
+			case R.id.buttonBracket:
+				if(SelectStart == SelectEnd) {
+					this.AddChar(V.CHAR_STR_LEFT_BRACKET + V.CHAR_STR_RIGHT_BRACKET, SelectStart, SelectEnd);
+					editText.setSelection(editText.getSelectionEnd() - 1);
+               canAnswer = false;
+				} else {
+					this.AddChar(V.CHAR_STR_LEFT_BRACKET, SelectStart, SelectStart);
+					this.AddChar(V.CHAR_STR_RIGHT_BRACKET, SelectEnd+1, SelectEnd+1);
+				}
+			  break;
+
+			case R.id.buttonPoint:
+				this.AddChar(V.CHAR_STR_POINT, SelectStart, SelectEnd);
+			  break;
+
+			case R.id.buttonLog:
+				this.AddFun(V.FUNCTION_LOG, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonLg:
+				this.AddFun(V.FUNCTION_LG, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonLn:
+				this.AddFun(V.FUNCTION_LN, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonSin:
+				this.AddFun(V.FUNCTION_SIN, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonAsin:
+				this.AddFun(V.FUNCTION_ASIN, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonCos:
+				this.AddFun(V.FUNCTION_COS, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonAcos:
+				this.AddFun(V.FUNCTION_ACOS, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonTan:
+				this.AddFun(V.FUNCTION_TAN, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonAtan:
+				this.AddFun(V.FUNCTION_ATAN, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonExp:
+				this.AddFun(V.FUNCTION_EXP, SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+
+			case R.id.buttonClearDB:
+	    		openContextMenu(buttonClearDB);
+			  break;
+      }
+
+      if(viewPager.getCurrentItem() == 0){
+         viewPager.setCurrentItem(1);
+      }
+
+      if(canAnswer) {
+         String res;
+         if(canSaveToHistory) {
+            if(!saveMathStr.isEmpty()) {
+               res = WorkSpace.ans(saveMathStr, editText);
+               editText.setText(V.EMPTY_RESULT);
+               textViewResult.setText(V.DEFAULT_RESULT);
+               if(res != V.ERROR) {
+                  WorkSpace.saveToHistory(
+                          saveMathStr,
+                          Double.parseDouble(res)
+                  );
+                  WorkSpace.getHistoryList(history_list, V.SIZE_HISTORY_LIST);
+               }
+            }
+         } else {
+            setResult();
+         }
+      }
+   }
+    
+   public boolean onLongClick(View v) {
+    	switch (v.getId()) {
+    	   case R.id.editText:
+            if(MS.length() > 0) {
+               int SelectStart = editText.getSelectionStart();
+               int SelectEnd = editText.getSelectionEnd();
+               this.AddChar(MS, SelectStart, SelectEnd);
+            } else {
+               MessageView.showInfo(this, getString(R.string.mr_read_empty), MessageView.LENGTH_SHORT);
+            }
+    		   break;
+
+         case R.id.textViewResult:
+            if(!editText.getText().toString().isEmpty()) {
+               WorkSpace.saveToHistory(
+                       editText.getText().toString(),
+                       Double.parseDouble(textViewResult.getText().toString())
+               );
+               MessageView.showInfo(this, getString(R.string.ms_save_result), MessageView.LENGTH_SHORT);
+               MS = textViewResult.getText().toString().trim();
+            }
+    		   break;
+    	}
+    	return true;
+   }
+    
+   public boolean onCreateOptionsMenu(Menu menu) {
+      return super.onCreateOptionsMenu(menu);
+   }
+     
+   void variable(View page, String view_page) {
+      if(view_page == V.PAGE_INDEX) {
+	      editText = (EditText) page.findViewById(R.id.editText);
+	      textViewResult = (TextView) page.findViewById(R.id.textViewResult);
+	    	buttonC = (Button) page.findViewById(R.id.buttonC);
+	         
+         //central keyBoard
+         buttonDelC = (Button) page.findViewById(R.id.buttonDelc);
+         button0 = (Button) page.findViewById(R.id.button0);
+         button1 = (Button) page.findViewById(R.id.button1);
+         button2 = (Button) page.findViewById(R.id.button2);
+         button3 = (Button) page.findViewById(R.id.button3);
+         button4 = (Button) page.findViewById(R.id.button4);
+         button5 = (Button) page.findViewById(R.id.button5);
+         button6 = (Button) page.findViewById(R.id.button6);
+         button7 = (Button) page.findViewById(R.id.button7);
+         button8 = (Button) page.findViewById(R.id.button8);
+         button9 = (Button) page.findViewById(R.id.button9);
+
+         //buttonMS = (Button) page.findViewById(R.id.buttonMS);
+         //buttonMR = (Button) page.findViewById(R.id.buttonMR);
+         //buttonMC = (Button) page.findViewById(R.id.buttonMC);
+         //buttonOst = (Button) page.findViewById(R.id.buttonOst);
+         buttonStep = (Button) page.findViewById(R.id.buttonStep);
+         buttonFact = (Button) page.findViewById(R.id.buttonFact);
+         buttonDiv = (Button) page.findViewById(R.id.buttonDiv);
+         buttonMult = (Button) page.findViewById(R.id.buttonMult);
+         buttonPlus = (Button) page.findViewById(R.id.buttonPlus);
+         buttonMinus = (Button) page.findViewById(R.id.buttonMinus);
+         buttonBracket = (Button) page.findViewById(R.id.buttonBracket);
+         buttonPoint = (Button) page.findViewById(R.id.buttonPoint);
+         buttonPi = (Button) page.findViewById(R.id.buttonPi);
+         buttonE = (Button) page.findViewById(R.id.buttonE);
+         // buttonExp = (Button) page.findViewById(R.id.buttonExp);
+         //end central keyBoard
+
+         // On Event
+         editText.setInputType(InputType.TYPE_NULL);
+         editText.setOnLongClickListener(this);
+         textViewResult.setOnLongClickListener(this);
+         buttonC.setOnClickListener(this);
+
+         //central keyBoard for click
+         buttonDelC.setOnClickListener(this);
+         button0.setOnClickListener(this);
+         button1.setOnClickListener(this);
+         button2.setOnClickListener(this);
+         button3.setOnClickListener(this);
+         button3.setOnClickListener(this);
+         button4.setOnClickListener(this);
+         button5.setOnClickListener(this);
+         button6.setOnClickListener(this);
+         button7.setOnClickListener(this);
+         button8.setOnClickListener(this);
+         button9.setOnClickListener(this);
+
+         //buttonMS.setOnClickListener(this);
+         //buttonMR.setOnClickListener(this);
+         //buttonMC.setOnClickListener(this);
+         // buttonOst.setOnClickListener(this);
+         buttonStep.setOnClickListener(this);
+         buttonFact.setOnClickListener(this);
+         buttonDiv.setOnClickListener(this);
+         buttonMult.setOnClickListener(this);
+         buttonPlus.setOnClickListener(this);
+         buttonMinus.setOnClickListener(this);
+         buttonBracket.setOnClickListener(this);
+         buttonPoint.setOnClickListener(this);
+         buttonPi.setOnClickListener(this);
+         buttonE.setOnClickListener(this);
+         // buttonExp.setOnClickListener(this);
+         //end central keyBoard
+    	} else if(view_page == V.PAGE_FUNCTIONS) {
+    		buttonExp = (Button) page.findViewById(R.id.buttonExp);
+    		buttonSin = (Button) page.findViewById(R.id.buttonSin);
+    		buttonAsin = (Button) page.findViewById(R.id.buttonAsin);
+    		buttonCos = (Button) page.findViewById(R.id.buttonCos);
+    		buttonAcos = (Button) page.findViewById(R.id.buttonAcos);
+    		buttonTan = (Button) page.findViewById(R.id.buttonTan);
+    		buttonAtan = (Button) page.findViewById(R.id.buttonAtan);
+    		buttonLog = (Button) page.findViewById(R.id.buttonLog);
+    		buttonLg = (Button) page.findViewById(R.id.buttonLg);
+    		buttonLn = (Button) page.findViewById(R.id.buttonLn);
+    		
+    		buttonExp.setOnClickListener(this);
+    		buttonSin.setOnClickListener(this);
+    		buttonAsin.setOnClickListener(this);
+    		buttonCos.setOnClickListener(this);
+    		buttonAcos.setOnClickListener(this);
+    		buttonTan.setOnClickListener(this);
+    		buttonAtan.setOnClickListener(this);
+    		buttonLog.setOnClickListener(this);
+    		buttonLg.setOnClickListener(this);
+    		buttonLn.setOnClickListener(this);
+    	 } else if(view_page == V.PAGE_HISTORY) {
+    		history_list = (ListView)page.findViewById(R.id.listViewR);
+    		buttonClearDB = (Button) page.findViewById(R.id.buttonClearDB);
+    		
+    		buttonClearDB.setOnClickListener(this);
+    		buttonClearDB.setOnCreateContextMenuListener(this);
+    		history_list.setOnItemClickListener(this);
+    		history_list.setOnCreateContextMenuListener(this);
+    	 }
+     }
+	 
+	public void onItemClick(AdapterView adapterView, View view, int position, long id) {
+		String value = ((TextView) view).getText().toString();
+		if(value.indexOf(V.CHAR_STR_ANS) != -1) {
+			menu_math_ans = value.substring(value.indexOf(V.CHAR_STR_ANS)+1);
+			menu_math_str = value.substring(0, value.indexOf(V.CHAR_STR_ANS));
+			openContextMenu(history_list);
+		}
+   }
+	 
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+      switch (v.getId()) {
+         case R.id.listViewR :
+            menu.add(Menu.NONE, ID_SET_MATH_STR, Menu.NONE, "Заменить формулу");
+            menu.add(Menu.NONE, ID_ADD_MATH_STR, Menu.NONE, "Вставить формулу");
+            menu.add(Menu.NONE, ID_SET_ANS, Menu.NONE, "Вставить ответ");
+            menu.add(Menu.NONE, ID_DELETE_MATH_STR, Menu.NONE, "Удалить Расчет");
+            break;
+         case R.id.buttonClearDB :
+            menu.add(Menu.NONE, ID_CLEAR_BUTTON_OK, Menu.NONE, "Ok");
+            menu.add(Menu.NONE, ID_CLEAR_BUTTON_CANCEL, Menu.NONE, "Cancel");
+            break;
+	   }
+	}
+	 
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		int SelectStart = 0;
+	 	switch (item.getItemId()) {
+	 	   case ID_SET_MATH_STR:
+            editText.setText(menu_math_str);
+            setResult();
+            viewPager.setCurrentItem(1);
+            break;
+	 	   case ID_ADD_MATH_STR:
+	 	    	SelectStart = editText.getSelectionStart();
+            AddChar(menu_math_str, SelectStart, SelectStart);
+            setResult();
+            viewPager.setCurrentItem(1);
+	 		   break;
+	 	   case ID_SET_ANS:
+	 	    	SelectStart = editText.getSelectionStart();
+            if(menu_math_ans.indexOf(V.VAR_E) != -1) {
+               menu_math_ans = menu_math_ans.replace(V.VAR_E, V.CHAR_STR_MULTIPLICATION + "10" + V.CHAR_STR_DEGREE + V.CHAR_STR_LEFT_BRACKET) + V.CHAR_STR_RIGHT_BRACKET;
+            }
+	 	      AddChar(menu_math_ans, SelectStart, SelectStart);
+            setResult();
+	 	      viewPager.setCurrentItem(1);
+	 		   break;
+	 		    
+	 	   case ID_CLEAR_BUTTON_OK:
+	 		   db_write.delete(DB.TABLE_NAME_MATH_HISTORY);
+			   WorkSpace.getHistoryList(history_list, 100);
+				closeContextMenu();
+	 		    break;
+	 		    
+	 	   case ID_CLEAR_BUTTON_CANCEL:
+	 		   closeContextMenu();
+	 		   break;
+
+         case ID_DELETE_MATH_STR:
+            String query = "" +
+                    "SELECT " + DB.ID + " " +
+                    " FROM " + DB.TABLE_NAME_MATH_HISTORY +
+                    " WHERE " + DB.MATH_STR + "= \"" + menu_math_str + "\"" + " AND " + DB.MATH_ANS + "=" + "\"" + menu_math_ans + "\"" +
+                    " LIMIT 1" +
+                    "";
+            List<ContentValues> list = db_read.Query(query, new String[] {DB.ID}, new String[] {V.TYPE_INT});
+            Integer idForDelete;
+            if(list.size() > 0 && (idForDelete = list.get(0).getAsInteger(DB.ID)) != null) {
+               db_write.delete(DB.TABLE_NAME_MATH_HISTORY, DB.ID + "=?", idForDelete);
+               WorkSpace.getHistoryList(history_list, 100);
+            }
+            break;
+	 		   
+           default:
+	 	    	return super.onContextItemSelected(item);
+	    }
+
+	    return true;
+     }
+
+	String AddChar(String ch, int Start, int End) {
+     	String str = editText.getText().toString();
+     	if(Start > 0) {
+         	if(Start == End) {
+         		editText.setText(str.substring(0,Start) + ch + str.substring(Start,str.length()));
+            } else {
+         		editText.setText(str.substring(0,Start) + ch + str.substring(End,str.length()));
+            }
+         	editText.setSelection(Start + ch.length());
+     	} else if(Start == 0 && Start == End) {
+     		editText.setText(ch + str.substring(Start, str.length()));
+     		editText.setSelection(ch.length());
+     	} else if(Start == 0 && Start != End) {
+     		editText.setText(ch + str.substring(End, str.length()));
+     		editText.setSelection(ch.length());
+     	}
+ 		return str;
+    }
+
+ 	String AddFun(String nameFun, int Start, int End) {
+ 	 	String str = editText.getText().toString();
+ 	 	if(Start > 0) {
+ 	     	if(Start == End) {
+ 	     		editText.setText(
+               str.substring(0, Start) +
+               nameFun + V.CHAR_STR_LEFT_BRACKET + V.CHAR_STR_RIGHT_BRACKET +
+               str.substring(Start, str.length())
+            );
+ 	     		editText.setSelection(Start + nameFun.length() + str.substring(Start,End).length() + 1);
+ 	     	} else {
+ 	     		editText.setText(
+               str.substring(0, Start) +
+               nameFun + V.CHAR_STR_LEFT_BRACKET + str.substring(Start,End) + V.CHAR_STR_RIGHT_BRACKET +
+               str.substring(End, str.length())
+            );
+ 	     		editText.setSelection(Start + nameFun.length() + str.substring(Start,End).length() + 2);
+ 	     	}
+ 	 	} else if(Start == 0 && Start == End) {
+ 	 		editText.setText(
+            nameFun + V.CHAR_STR_LEFT_BRACKET + V.CHAR_STR_RIGHT_BRACKET +
+            str.substring(Start,str.length())
+         );
+ 	 		editText.setSelection(nameFun.length() + 1);
+ 	 	} else if(Start == 0 && Start != End) {
+ 	 		editText.setText(
+            nameFun + V.CHAR_STR_LEFT_BRACKET + str.substring(0, End) + V.CHAR_STR_RIGHT_BRACKET +
+            str.substring(End, str.length())
+         );
+ 	 		editText.setSelection(nameFun.length() + str.substring(Start, End).length() + 2);
+ 	 	}
+ 	   return str;
+ 	 }
+}

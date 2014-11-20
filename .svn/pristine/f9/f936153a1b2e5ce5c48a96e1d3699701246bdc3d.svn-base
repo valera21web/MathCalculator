@@ -1,0 +1,58 @@
+package org.varel.calculator.Stack;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.varel.calculator.Search.Search;
+
+public class Stack {
+	
+	private List<String> data;
+	private int length = 0;
+	private int key = 0;
+
+	public Stack(int len) {
+		data = new ArrayList<String>();
+		length = len;
+		key = 0;
+	}
+	
+	public void add(String val) {
+		if(key < length) {
+			data.add(key, val);
+			++key;
+		} else {
+			for(int i = 0; i < length - 1; ++i) {
+				data.set(i, data.get(i + 1));
+			}
+			data.set(length - 1, val);
+		}
+	}
+	
+	public boolean inStack(String search) {
+		try {
+			for(int i = 0; i <= key; ++i) {
+				if(Search.Are(data.get(i), search)) {
+					return true;
+				}
+			}					
+		} catch (Exception ex) {
+			return false;
+		}
+		return false;
+	}
+	
+	public String get() {
+		String str = "";
+		if(key > 0) {
+			str = data.get(key - 1);
+			--key;
+		}
+      return str;
+	}
+	
+	public boolean empty() {
+      return key == 0;
+	}
+
+}

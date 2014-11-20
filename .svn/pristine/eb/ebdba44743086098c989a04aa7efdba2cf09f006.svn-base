@@ -1,0 +1,5 @@
+package com.varel.calculator.MathCalculator;
+
+public class Error {
+
+}

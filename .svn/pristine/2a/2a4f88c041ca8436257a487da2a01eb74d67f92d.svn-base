@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/touchScreen"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/listViewR"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.9" >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/buttonClearDB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonstyle2"
+        android:height="50dp"
+        android:text="Clear"
+        android:textSize="@dimen/ButtonTextSize" />
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:id="@+id/touchScreen"
+   android:layout_width="fill_parent"
+   android:layout_height="match_parent"
+   android:orientation="vertical" >
+
+   <ListView
+      android:id="@+id/listViewR"
+      android:layout_width="fill_parent"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:focusable="true"
+      android:fastScrollEnabled="true"
+      android:focusableInTouchMode="true"
+      android:transcriptMode="normal"
+      android:cacheColorHint="@android:color/transparent"
+      android:scrollingCache="false"
+      android:background="@drawable/history_background">
+   </ListView>
+
+   <Button
+      android:id="@+id/buttonClearDB"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/button_style_history_clear"
+      android:height="50dp"
+      android:text="@string/buttonClear"
+      android:textColor="@color/colorTextButtonKeyboard"
+      android:textSize="@dimen/ButtonTextSize" />
+
+</LinearLayout>

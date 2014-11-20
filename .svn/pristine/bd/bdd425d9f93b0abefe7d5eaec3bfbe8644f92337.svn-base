@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, AndriodCalculatorActivity!</string>
+    <string name="app_name">AndriodCalculator</string>
+    <string name="emptyHistory">You history is empty</string>
+    
+	<color name="tableBacground">#333</color>
+	<color name="tabBacground">#333</color>
+	
+	<color name="appBacgroundStart11">#079</color>
+	<color name="appBacgroundEnd11">#079</color>
+	<color name="appBacgroundStart12">#55A</color>
+	<color name="appBacgroundEnd12">#55A</color>
+	
+	<color name="editBacgroundStart11">#00AACC</color>
+	<color name="editBacgroundEnd11">#0088BB</color>
+	<color name="editBacgroundStart12">#1199BB</color>
+	<color name="editBacgroundEnd12">#0099CC</color>
+	
+	<color name="buttonBacgroundAnsStart11">#AACC11</color>
+	<color name="buttonBacgroundAnsEnd11">#889911</color>
+	<color name="buttonBacgroundAnsStart12">#88AA00</color>
+	<color name="buttonBacgroundAnsEnd12">#557700</color>
+	
+	<color name="buttonBacgroundStart11">#99CC55</color>
+	<color name="buttonBacgroundEnd11">#AAFF66</color>
+	<color name="buttonBacgroundStart12">#999955</color>
+	<color name="buttonBacgroundEnd12">#AAFF66</color>
+	
+	<color name="EditTextColor">#000000</color>
+	
+	<dimen name="EditTextSize">25dp</dimen>
+	<dimen name="EditTextSize2">20dp</dimen>
+	<dimen name="EditTextSize3">15dp</dimen>
+	<dimen name="EditTextSize4">10dp</dimen>
+	
+	<dimen name="ButtonTextSize">20dp</dimen>
+	<dimen name="ButtonAnsTextSize">30dp</dimen>
+	
+	<dimen name="height_button3">65dp</dimen>
+	<dimen name="height_button3_b">65dp</dimen>
+	<dimen name="widht_button3">80dp</dimen>
+	<dimen name="widht_button3_1">76dp</dimen>
+	<dimen name="button3_text_size_b">40dp</dimen>
+	<dimen name="button3_text_size">25dp</dimen>
+	
+</resources>

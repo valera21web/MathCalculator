@@ -1,0 +1,78 @@
+package com.varel.calculator;
+
+import android.app.Activity;
+import android.content.Context;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MessageView {
+
+   public final static Integer LENGTH_LONG = Toast.LENGTH_LONG;
+   public final static Integer LENGTH_SHORT = Toast.LENGTH_SHORT;
+
+   public static void showError(EditText editText, String errorText) {
+      editText.setError(errorText);
+   }
+
+   public static void showError(Context pContext, String errorText) {
+      LayoutInflater inflater = LayoutInflater.from(pContext);
+      View layout = inflater.inflate(R.layout.custom_toast_error, (ViewGroup) ((Activity)pContext).findViewById(R.id.toast_layout_root));
+
+      TextView text = (TextView) layout.findViewById(R.id.text);
+      text.setText(errorText);
+
+      Toast toast = new Toast(pContext.getApplicationContext());
+      toast.setGravity(Gravity.CENTER_VERTICAL, 0, -100);
+      toast.setDuration(Toast.LENGTH_LONG);
+      toast.setView(layout);
+      toast.show();
+   }
+
+   public static void showError(Context pContext, String errorText, int length) {
+      LayoutInflater inflater = LayoutInflater.from(pContext);
+      View layout = inflater.inflate(R.layout.custom_toast_error, (ViewGroup) ((Activity)pContext).findViewById(R.id.toast_layout_root));
+
+      TextView text = (TextView) layout.findViewById(R.id.text);
+      text.setText(errorText);
+
+      Toast toast = new Toast(pContext.getApplicationContext());
+      toast.setGravity(Gravity.CENTER_VERTICAL, 0, -100);
+      toast.setDuration(length);
+      toast.setView(layout);
+      toast.show();
+   }
+
+   public static void showInfo(Context pContext, String infoText) {
+      LayoutInflater inflater = LayoutInflater.from(pContext);
+      View layout = inflater.inflate(R.layout.custom_toast_info, (ViewGroup) ((Activity)pContext).findViewById(R.id.toast_layout_root));
+
+      TextView text = (TextView) layout.findViewById(R.id.text);
+      text.setText(infoText);
+
+      Toast toast = new Toast(pContext.getApplicationContext());
+      toast.setGravity(Gravity.CENTER_VERTICAL, 0, -100);
+      toast.setDuration(Toast.LENGTH_LONG);
+      toast.setView(layout);
+      toast.show();
+   }
+
+   public static void showInfo(Context pContext, String infoText, int length) {
+      LayoutInflater inflater = LayoutInflater.from(pContext);
+      View layout = inflater.inflate(R.layout.custom_toast_info, (ViewGroup) ((Activity)pContext).findViewById(R.id.toast_layout_root));
+
+      TextView text = (TextView) layout.findViewById(R.id.text);
+      text.setText(infoText);
+
+      Toast toast = new Toast(pContext.getApplicationContext());
+      toast.setGravity(Gravity.CENTER_VERTICAL, 0, -100);
+      toast.setDuration(length);
+      toast.setView(layout);
+      toast.show();
+   }
+
+}

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:baselineAligned="true"
+    android:id="@+id/layout"
+    android:orientation="horizontal" >
+		<TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:background="@color/tableBacground">
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+				android:paddingLeft="1dp" 
+				android:paddingRight="1dp">
+                <Button
+                    android:id="@+id/buttonE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:height="50dp"
+                    android:textSize="@dimen/ButtonTextSize"
+                    android:background="@drawable/buttonstyle2" 
+                    android:layout_marginRight="1dp"
+                    android:text="E" />
+                <Button
+                    android:id="@+id/buttonLog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:height="50dp"
+                    android:textSize="@dimen/ButtonTextSize"
+                    android:background="@drawable/buttonstyle2"  
+                    android:layout_marginRight="1dp"
+                    android:text="Log" />
+                <Button
+                    android:id="@+id/buttonLg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:height="50dp"
+                    android:textSize="@dimen/ButtonTextSize"
+                    android:background="@drawable/buttonstyle2"  
+                    android:layout_marginRight="1dp"
+                    android:text="lg" />
+                <Button
+                    android:id="@+id/buttonLn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:height="50dp"
+                    android:textSize="@dimen/ButtonTextSize"
+                    android:background="@drawable/buttonstyle2"  
+                    android:layout_marginRight="1dp"
+                    android:text="ln" />
+                <LinearLayout
+					    android:layout_width="fill_parent"
+					    android:layout_height="fill_parent"
+					    android:id="@+id/layoutB1"
+					    android:layout_weight="1"
+					    android:layout_marginRight="1dp"
+		                android:height="50dp"
+					    android:background="@drawable/buttonstyle2" >
+						<Button
+		                    android:id="@+id/buttonTenStepX"
+		                    android:layout_width="fill_parent"
+		                    android:layout_height="fill_parent"
+		                    android:background="@drawable/ten_step" />
+				</LinearLayout>               
+                <LinearLayout
+					    android:layout_width="fill_parent"
+					    android:layout_height="fill_parent"
+					    android:id="@+id/layoutB1"
+					    android:layout_weight="1"
+		                android:height="50dp"
+					    android:background="@drawable/buttonstyle2" >
+						<Button
+		                    android:id="@+id/buttonRootS"
+		                    android:layout_width="fill_parent"
+		                    android:layout_height="fill_parent"
+		                    android:background="@drawable/root_x" />
+					</LinearLayout>
+               </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp" >
+	                <Button
+	                    android:id="@+id/buttonExp"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:height="50dp"
+	                    android:textSize="@dimen/ButtonTextSize"
+	                    android:background="@drawable/buttonstyle2"  
+	                    android:layout_marginRight="1dp"
+	                    android:text="Exp" />
+	                <Button
+	                    android:id="@+id/buttonSin"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:height="50dp"
+	                    android:textSize="@dimen/ButtonTextSize"
+	                    android:background="@drawable/buttonstyle2"  
+	                    android:layout_marginRight="1dp"
+	                    android:text="sin" />
+	                <Button
+	                    android:id="@+id/buttonAsin"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:height="50dp"
+	                    android:textSize="@dimen/ButtonTextSize"
+	                    android:background="@drawable/buttonstyle2" 
+	                    android:layout_marginRight="1dp" 
+	                    android:text="asin" />
+	                <Button
+	                    android:id="@+id/buttonCos"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:height="50dp"
+	                    android:textSize="@dimen/ButtonTextSize"
+	                    android:background="@drawable/buttonstyle2" 
+	                    android:layout_marginRight="1dp"
+	                    android:text="cos" />
+	                <Button
+	                    android:id="@+id/buttonAcos"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:height="50dp"
+	                    android:textSize="@dimen/ButtonTextSize"
+	                    android:background="@drawable/buttonstyle2" 
+	                    android:layout_marginRight="1dp"
+	                    android:text="acos" />
+	                <LinearLayout
+					    android:layout_width="fill_parent"
+					    android:layout_height="fill_parent"
+					    android:id="@+id/layoutB1"
+					    android:layout_weight="1"
+		                android:height="50dp"
+					    android:background="@drawable/buttonstyle2" >
+		                <Button
+		                    android:id="@+id/buttonRootT"
+		                    android:layout_width="fill_parent"
+		                    android:layout_height="fill_parent"
+		                    android:background="@drawable/root_x_3"  />
+		            </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="1dp" 
+					android:paddingRight="1dp"
+                     >
+	                <Button
+	                    android:id="@+id/buttonOneDiv"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:height="50dp"
+	                    android:textSize="@dimen/ButtonTextSize"
+	                    android:background="@drawable/buttonstyle2" 
+	                    android:layout_marginRight="1dp"
+	                    android:text="1/x" />
+	                <Button
+	                    android:id="@+id/buttonTan"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:height="50dp"
+	                    android:textSize="@dimen/ButtonTextSize"
+	                    android:background="@drawable/buttonstyle2" 
+	                    android:layout_marginRight="1dp"
+	                    android:text="tan" />
+	                <Button
+	                    android:id="@+id/buttonAtan"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:height="50dp"
+	                    android:textSize="@dimen/ButtonTextSize"
+	                    android:background="@drawable/buttonstyle2" 
+	                    android:layout_marginRight="1dp"
+	                    android:text="atan" />
+	                <LinearLayout
+					    android:layout_width="fill_parent"
+					    android:layout_height="fill_parent"
+					    android:id="@+id/layoutB1"
+	                    android:layout_weight="1"
+	                    android:layout_marginRight="1dp"
+		                android:height="50dp"
+					    android:background="@drawable/buttonstyle2" >
+						<Button
+		                    android:id="@+id/buttonXStep"
+		                    android:layout_width="fill_parent"
+		                    android:layout_height="fill_parent"
+		                    android:background="@drawable/x_step" />
+					</LinearLayout>
+					<LinearLayout
+					    android:layout_width="fill_parent"
+					    android:layout_height="fill_parent"
+					    android:id="@+id/layoutB1"
+	                    android:layout_weight="1"
+	                    android:layout_marginRight="1dp"
+		                android:height="50dp"
+					    android:background="@drawable/buttonstyle2" >
+						<Button
+		                    android:id="@+id/buttonXStep2"
+		                    android:layout_width="fill_parent"
+		                    android:layout_height="fill_parent"
+		                    android:background="@drawable/x_step_y" />
+					</LinearLayout>
+	                <LinearLayout
+					    android:layout_width="fill_parent"
+					    android:layout_height="fill_parent"
+					    android:id="@+id/layoutB1"
+					    android:layout_weight="1"
+		                android:height="50dp"
+					    android:background="@drawable/buttonstyle2" >
+		                <Button
+		                    android:id="@+id/buttonRootN"
+		                    android:layout_width="fill_parent"
+		                    android:layout_height="fill_parent"
+		                    android:background="@drawable/root_x_n" />
+		           </LinearLayout>
+                </TableRow>
+            </TableLayout>
+</LinearLayout>

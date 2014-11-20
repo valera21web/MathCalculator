@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="105dp"
+    android:orientation="vertical" >
+    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="120dp"
+	        android:orientation="vertical" 
+	        android:layout_marginBottom="0dp" 
+	        android:layout_marginLeft="1dp" 
+	        android:layout_marginRight="1dp" 
+	        android:layout_marginTop="1dp">
+			
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/editstyle1"
+                android:height="60dp"
+                android:inputType="textMultiLine"
+                android:maxHeight="60dp"
+                android:minHeight="60dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textSize="@dimen/EditTextSize"
+                android:width="260dp" >
+
+	                <requestFocus />
+	       	</EditText>
+	            <LinearLayout
+	                android:height="45dp" 
+		            android:layout_width="fill_parent"
+		            android:layout_height="fill_parent" >
+	                <Button
+	                    android:id="@+id/buttonC"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="fill_parent"
+	                    android:background="@drawable/buttonstyle1"
+	                    android:height="60dp"
+	                    android:text=" C "
+	                    android:textSize="@dimen/ButtonAnsTextSize"
+	                    android:width="60dp" />
+
+			        <TextView
+			            android:id="@+id/textViewResult"
+			            android:layout_width="194dp"
+			            android:layout_height="fill_parent"
+			            android:paddingLeft="5dp"
+			            android:paddingTop="5dp"
+			            android:text="0"
+			            android:textAppearance="?android:attr/textAppearanceLarge"
+			            android:width="230dp" />
+
+			        <Button
+			            android:id="@+id/buttonDelc"
+			            android:layout_width="fill_parent"
+			            android:layout_height="fill_parent"
+			            android:background="@drawable/buttonstyle1"
+			            android:text="Del"
+			            android:textSize="@dimen/ButtonTextSize" />
+
+	       		</LinearLayout>	        
+	    </LinearLayout>
+</LinearLayout>

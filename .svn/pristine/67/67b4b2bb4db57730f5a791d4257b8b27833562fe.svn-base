@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+	<TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+			<Button
+                android:id="@+id/buttonSin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/buttonstyle3"
+                android:text="sin(a)" />
+
+            <Button
+                android:id="@+id/buttonAsin"
+                android:layout_width="match_parent"
+                android:background="@drawable/buttonstyle3"  
+                android:layout_height="50dp"
+                android:text="asin(x)" />
+            
+            <Button
+                android:id="@+id/buttonCos"
+                android:layout_width="match_parent"
+                android:background="@drawable/buttonstyle3"  
+                android:layout_height="50dp"
+                android:text="cos(a)" />
+            <Button
+                android:id="@+id/buttonAcos"
+                android:layout_width="match_parent"
+                android:background="@drawable/buttonstyle3"  
+                android:layout_height="50dp"
+                android:text="acos(x)" />
+             <Button
+                android:id="@+id/buttonTan"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/buttonstyle3"
+                android:text="tan(a)" />
+
+            <Button
+                android:id="@+id/buttonAtan"
+                android:layout_width="match_parent"
+                android:background="@drawable/buttonstyle3"  
+                android:layout_height="50dp"
+                android:text="atan(x)" />
+            
+            <Button
+                android:id="@+id/buttonLog"
+                android:layout_width="match_parent"
+                android:background="@drawable/buttonstyle3"  
+                android:layout_height="50dp"
+                android:text="log(x)" />
+            <Button
+                android:id="@+id/buttonLg"
+                android:layout_width="match_parent"
+                android:background="@drawable/buttonstyle3"  
+                android:layout_height="50dp"
+                android:text="lg(x)" />
+             <Button
+                android:id="@+id/buttonLn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/buttonstyle3"
+                android:text="ln(x)" />
+
+            <Button
+                android:id="@+id/buttonAbs"
+                android:layout_width="match_parent"
+                android:background="@drawable/buttonstyle3"  
+                android:layout_height="50dp"
+                android:text="abs(x)" />
+            
+            <Button
+                android:id="@+id/buttonExp"
+                android:layout_width="match_parent"
+                android:background="@drawable/buttonstyle3"  
+                android:layout_height="50dp"
+                android:text="exp(x)" />
+            
+    </TableLayout>
+</ScrollView>

@@ -1,0 +1,5 @@
+package com.app.calculator.MathCalculator;
+
+public class Error {
+
+}

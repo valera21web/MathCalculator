@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:baselineAligned="true"
+    android:id="@+id/layout"
+    android:orientation="horizontal" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" 
+        android:background="@drawable/appstyle">
+        
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/top"
+			/>
+	    <LinearLayout
+	        android:id="@+id/layoutc"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:orientation="vertical">
+	        <include
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        layout="@layout/keyboardc" android:layout_marginTop="1dp"/>
+	    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

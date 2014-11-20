@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!--
+    FINISHED   w600
+               - conflict with height Nexus 7
+   -->
+
+   <dimen name="paddingLeftApplicationNameTop">430dp</dimen>
+
+   <dimen name="topLayoutWight">600dp</dimen>
+   <dimen name="topLayoutHeight">200dp</dimen>
+
+   <dimen name="inputMathStringWidth">600dp</dimen>
+   <dimen name="inputMathStringHeight">100dp</dimen>
+
+   <dimen name="buttonTopMenuCHeight">100dp</dimen>
+   <dimen name="buttonTopMenuCWidth">100dp</dimen>
+   <dimen name="buttonTopMenuDelHeight">100dp</dimen>
+   <dimen name="buttonTopMenuDelWidth">100dp</dimen>
+
+   <dimen name="outInputResultMathStringHeight">100dp</dimen>
+   <dimen name="outInputResultMathStringWidth">400dp</dimen>
+
+   <dimen name="buttonKeyboardWidth">150dp</dimen>
+   <dimen name="buttonKeyboardHeight">145dp</dimen>
+
+
+   <dimen name="editTextPaddingLeft">10dp</dimen>
+   <dimen name="editTextPaddingTop">10dp</dimen>
+   <dimen name="editTextSizeText">60dp</dimen>
+
+   <dimen name="viewAnswerPaddingLeft">5dp</dimen>
+   <dimen name="viewAnswerPaddingTop">15dp</dimen>
+   <dimen name="viewAnswerSizeText">40dp</dimen>
+
+   <dimen name="buttonTopSizeText">30dp</dimen>
+   <dimen name="buttonKeyboardNumber">50dp</dimen>
+   <dimen name="buttonKeyboardWords">40dp</dimen>
+   <dimen name="buttonKeyboardOperators">58dp</dimen>
+
+   <dimen name="buttonKeyboard6PaddingTop">10dp</dimen>
+
+   <string-array name="sizeTextMathString">
+      <item>20</item>
+      <item>35</item>
+      <item>30</item>
+      <item>35</item>
+      <item>45</item>
+      <item>60</item>
+   </string-array>
+
+
+</resources>

@@ -1,0 +1,164 @@
+package com.app.calculator.MathCalculator;
+
+import android.widget.EditText;
+import com.app.calculator.Search.Search;
+
+public class Validation {
+	
+	public static int Valid(String str) {
+		char[] math_str = str.toCharArray();
+		int len = math_str.length;
+		int fl_int = 0;
+		int fl_string = 0;
+		int fl_point = 0;
+		int fl_bracket = 0;
+		int fl_sub = 0;
+		
+		for(int i = 0; i < len; ++i) {
+			if((int)math_str[i] == 1) {
+				
+			}
+		}
+		
+		return 1;/*
+		str = ReOperand(str);
+		int result = 1;
+		char[] char_str = str.toCharArray();
+		char[] strChar = new char[]{'+','-','*','/','^','%','!'};
+		int type_char = -1;
+		int count = char_str.length;
+		int i;
+		int brackets = 0;
+		
+		if(count == 0)
+			return 2; // empty string
+		
+		for(i = 0;i < count && result == 1;++i){
+			if(char_str[i] == '(')
+				++brackets;
+			else if(char_str[i] == ')')
+				--brackets;
+			
+			if(Search.InArray(char_str[i],strChar)){
+				if(type_char == 0)
+					return 3; // two char operator
+				type_char = 0;
+			}else
+				type_char = 1;
+		}
+		
+		if(brackets != 0){
+			result = 4; // error with brackets
+		}
+		return result;*/
+	}
+	
+	public static String Optimization(String str){
+		String result = "";
+		
+		char[] strChar = new char[]{'+','-','*','/','^','%'};
+		char[] char_str = str.toCharArray();
+		
+		String left_str = "";
+		String right_str = "";
+		
+		int count_str = char_str.length;
+		
+		for(int i = 1; i < count_str-1; ++i){
+			if((int)char_str[i] >= 0x41 && (int)char_str[i] <= 0x7A && char_str[i] != '^' ){
+				if(!Search.InArray(char_str[i-1],strChar)){
+					if((int)char_str[i-1] < 0x41){
+						left_str = str.substring(0, i) + "*";
+						right_str = str.substring(i,count_str);
+						str = left_str + right_str;
+						char_str = str.toCharArray();
+						count_str = char_str.length;
+					}
+				}
+			}else if(char_str[i]  == '('){
+				if(!Search.InArray(char_str[i-1],strChar)){
+					if((int)char_str[i-1] < 0x41){
+						left_str = str.substring(0, i) + "*";
+						right_str = str.substring(i,count_str);
+						str = left_str + right_str;
+						char_str = str.toCharArray();
+						count_str = char_str.length;
+					}
+				}
+			}else if(char_str[i]  == ')'){
+				if(!Search.InArray(char_str[i+1],strChar)){
+					left_str = str.substring(0, i+1) + "*";
+					right_str = str.substring(i+1,count_str);
+					str = left_str + right_str;
+					char_str = str.toCharArray();
+					count_str = char_str.length;
+				}
+			}
+		}
+		result = str;
+		return result;
+	}
+	public static String Optimization(String str, EditText pole){
+		int Select = pole.getSelectionStart();
+		char[] strChar = new char[]{'+','-','*','/','^','%'};
+		char[] char_str = str.toCharArray();
+		
+		String left_str = "";
+		String right_str = "";
+		
+		int count_str = char_str.length;
+		
+		for(int i = 1; i < count_str-1; ++i){
+			if((int)char_str[i] >= 0x41 && (int)char_str[i] <= 0x7A && char_str[i] != '^' ){
+				if(!Search.InArray(char_str[i-1],strChar)){
+					if((int)char_str[i-1] < 0x41 && char_str[i-1] != '('){
+						if(i < Select) 
+							++Select;
+						left_str = str.substring(0, i) + "*";
+						right_str = str.substring(i,count_str);
+						str = left_str + right_str;
+						char_str = str.toCharArray();
+						count_str = char_str.length;
+					}
+				}
+			}else if(char_str[i]  == '('){
+				if(!Search.InArray(char_str[i-1],strChar)){
+					if((int)char_str[i-1] < 0x41 && char_str[i-1] != '('){
+						if(i < Select) 
+							++Select;
+						left_str = str.substring(0, i) + "*";
+						right_str = str.substring(i,count_str);
+						str = left_str + right_str;
+						char_str = str.toCharArray();
+						count_str = char_str.length;
+					}
+				}
+			}else if(char_str[i]  == ')'){
+				if(!Search.InArray(char_str[i+1],strChar)){
+					if(char_str[i+1]  != ')'){
+						if(i <= Select) 
+							++Select;
+						left_str = str.substring(0, i+1) + "*";
+						right_str = str.substring(i+1,count_str);
+						str = left_str + right_str;
+						char_str = str.toCharArray();
+						count_str = char_str.length;
+					}
+				}
+			}
+		}
+		pole.setText(str);
+		pole.setSelection(Select);
+		return str;
+	}
+
+	protected static String ReOperand(String str){
+		if(str.indexOf("--") != -1)
+			str = str.replace("--", "+");
+		if(str.indexOf("+-") != -1)
+			str = str.replace("+-", "-");
+        if(str.indexOf("-+") != -1)
+            str = str.replace("-+", "-");
+	  return str;
+	}
+}

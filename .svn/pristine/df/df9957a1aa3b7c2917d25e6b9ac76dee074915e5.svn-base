@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="@dimen/topLayoutHeight"
+              android:orientation="vertical" >
+
+   <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="@dimen/topLayoutHeight"
+           android:orientation="vertical">
+
+      <EditText
+              android:id="@+id/editText"
+              android:layout_width="fill_parent"
+              android:layout_height="@dimen/inputMathStringHeight"
+              android:background="@drawable/editstyle1"
+              android:height="@dimen/inputMathStringHeight"
+              android:inputType="textMultiLine"
+              android:paddingLeft="@dimen/editTextPaddingLeft"
+              android:paddingTop="@dimen/editTextPaddingTop"
+              android:textSize="@dimen/editTextSizeText"
+              android:width="@dimen/inputMathStringWidth"
+              android:text="">
+         <requestFocus />
+      </EditText>
+
+      <LinearLayout
+              android:layout_width="fill_parent"
+              android:layout_height="@dimen/outInputResultMathStringHeight" >
+
+         <Button
+                 android:id="@+id/buttonC"
+                 android:layout_width="@dimen/buttonTopMenuCWidth"
+                 android:layout_height="@dimen/buttonTopMenuCHeight"
+                 android:background="@drawable/buttonstyle1"
+                 android:height="@dimen/buttonTopMenuCHeight"
+                 android:text="@string/buttonC"
+                 android:textSize="@dimen/buttonTopSizeText"
+                 android:width="@dimen/buttonTopMenuCWidth"/>
+
+         <TextView
+                 android:id="@+id/textViewResult"
+                 android:layout_width="@dimen/outInputResultMathStringWidth"
+                 android:layout_height="fill_parent"
+                 android:paddingLeft="@dimen/viewAnswerPaddingLeft"
+                 android:paddingTop="@dimen/viewAnswerPaddingTop"
+                 android:textSize="@dimen/viewAnswerSizeText"
+                 android:text="0"
+                 android:textAppearance="?android:attr/textAppearanceLarge"
+                 android:height="@dimen/outInputResultMathStringWidth"/>
+
+         <Button
+                 android:id="@+id/buttonDelc"
+                 android:layout_width="@dimen/buttonTopMenuDelWidth"
+                 android:layout_height="fill_parent"
+                 android:background="@drawable/buttonstyle1"
+                 android:text="@string/buttonDel"
+                 android:textSize="@dimen/buttonTopSizeText"
+                 android:height="@dimen/buttonTopMenuDelHeight"
+                 android:width="@dimen/buttonTopMenuDelWidth"/>
+
+      </LinearLayout>
+   </LinearLayout>
+</LinearLayout>

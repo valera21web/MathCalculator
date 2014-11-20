@@ -1,0 +1,38 @@
+package com.app.calculator.MathCalculator;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Convert {
+	
+	private List<Double> Operand = new ArrayList<Double>();
+	
+	public Convert(){
+		Operand.add(0.0);
+	}
+	
+	public String add(double arg){
+		String result = "";
+		Operand.add(arg);
+		result = "0v"+(Operand.size()-1);
+		return result;
+	}
+	public void set(int key,double value){
+		Operand.set(key,value);
+	}
+	public boolean set(String key,double value){
+		boolean result = false;
+		key = key.substring(2, key.length());
+		if(Integer.parseInt(key) <= Operand.size()-1){
+			Operand.set(Integer.parseInt(key),value);
+			result = true;
+		}
+		return result;
+	}
+	public double get(String key){
+		double result = 0.0;
+		key = key.substring(2, key.length());
+		result = Operand.get(Integer.parseInt(key));
+		return result;
+	}
+}

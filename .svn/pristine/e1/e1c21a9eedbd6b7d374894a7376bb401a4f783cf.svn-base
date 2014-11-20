@@ -1,0 +1,182 @@
+package com.app.calculator.MathCalculator;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import com.app.calculator.R;
+import com.app.calculator.DB.DB;
+import com.app.calculator.DB.Read.DBRead;
+import com.app.calculator.DB.Write.DBWrite;
+import com.app.calculator.Search.Search;
+import com.app.calculator.Stack.Stack;
+import android.content.ContentValues;
+import android.content.Context;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+
+public class Calculator extends RePlace  {
+	private DBWrite db_write;
+	private DBRead db_read;
+	private Context Content;
+	private Stack last_math_str = new Stack(10);
+
+	
+	public Calculator(Context C) {
+		super();
+		Content = C;
+      db_write = new DBWrite(Content);
+      db_read = new DBRead(Content);
+	}
+	
+	public String ans(String mathFormula, EditText editText, ListView historyList){
+      if(mathFormula.length() == 0) {
+         return "0";
+      }
+      double result = 0;
+      String resultString = "0";
+
+      if(mathFormula != ReOperand(mathFormula)) {
+         int SelectStart = editText.getSelectionStart();
+         String leftFormula = mathFormula.substring(0, SelectStart);
+         String rightFormula = mathFormula.substring(SelectStart, mathFormula.length());
+
+         leftFormula = ReOperand(leftFormula);
+         rightFormula = ReOperand(rightFormula);
+
+         mathFormula = leftFormula + rightFormula;
+         editText.setText(mathFormula);
+         editText.setSelection(leftFormula.length());
+      }
+
+
+		if(mathFormula.length() >= 40) {
+			editText.setTextSize(12f);
+		} else if(mathFormula.length() >= 35) {
+			editText.setTextSize(14f);
+		} else if(mathFormula.length() >= 28) {
+			editText.setTextSize(16f);
+		} else if(mathFormula.length() >= 22) {
+			editText.setTextSize(20f);
+		} else if(mathFormula.length() >= 16) {
+			editText.setTextSize(25f);
+		} else if(mathFormula.length() >= 1 ) {
+			editText.setTextSize(32f);
+		}
+		
+		switch(Validation.Valid(mathFormula)) {
+         case 0:
+            resultString = "ERROR";
+            break;
+			case 1:
+				mathFormula = Validation.Optimization(mathFormula, editText);
+				try {
+					mathFormula = Pi(mathFormula);
+					mathFormula = E(mathFormula);
+
+					mathFormula = MathFunction(mathFormula);      //rePlace all Math Function [ sin(), cos(), ln() .... ]
+					mathFormula = Factorial(mathFormula);         //rePlace all Factorial [ ! ]
+					mathFormula = Modulo(mathFormula);            //rePlace all Modulo [ % ]
+					mathFormula = Brackets(mathFormula);          //rePlace all Brackets [ ( ) ]
+					mathFormula = Degree(mathFormula);            //rePlace all Degree[ x^y ]
+					mathFormula = Multiplication(mathFormula);    //rePlace all Multiplication [ * ]
+					mathFormula = Division(mathFormula);          //rePlace all Division [ / ]
+					result = EasyStr(mathFormula);                //summ(mathFormula)
+					
+					BigDecimal res = new BigDecimal(result);
+					res = res.setScale(16, BigDecimal.ROUND_HALF_DOWN); // round 
+					result = res.doubleValue();
+               resultString = Double.toString(result);
+				} catch(Exception ex) {
+					editText.setError("Error format");
+               resultString = "ERROR";
+				}
+				break;
+			case 2:
+				editText.setError("Error with operator");
+            resultString = "ERROR";
+				break;
+			case 3:
+				editText.setError("Error with brackets");
+            resultString = "ERROR";
+            break;
+		}
+	   return resultString;
+	}
+	
+	public boolean saveToHistory(String math_row, Double answer) {
+		if(Validation.Valid(math_row) == 1) {
+			if(!Search.is_integer(math_row) && !last_math_str.inStack(math_row)) {
+				db_write.Query("" +
+					"INSERT INTO "+ DB.TABLE_NAME_MATH_HISTORY +" ("+ DB.MATH_STR +","+ DB.MATH_ANS +") " +
+					"VALUES('"+ math_row +"', '"+ answer +"')"
+				);
+				last_math_str.add(math_row);
+				return true;
+			}
+		}
+		return false;
+	}
+
+   /////////////////////////////////////////////  WARNING
+   /////////////////////////////////////////////  WARNING
+   /////////////////////////////////////////////  WARNING      TRY in can is delete
+   /////////////////////////////////////////////  WARNING
+   /////////////////////////////////////////////  WARNING
+	public void getHistoryList(ListView historyList, int num) {
+         String query = "" +
+            "SELECT "+ DB.MATH_STR +"," + DB.MATH_ANS + " " +
+            "FROM "+ DB.TABLE_NAME_MATH_HISTORY + " " +
+            "ORDER BY " + DB.MATH_CREATE + " DESC" + " " +
+            "LIMIT "+ num + "" +
+         "";
+         Log.v("SQL", " Query = 'Start';");
+         List<String> print_list = new ArrayList<String>();
+		ContentValues TMP = new ContentValues();
+         String res_str = "";
+         List<ContentValues> list = db_read.Query(query, new String[] {DB.MATH_STR, DB.MATH_ANS}, new String[] {"String", "String"});
+         int count = list.size();
+         for(int i = 0; i < count; ++i) {
+            TMP = list.get(i);
+            if(TMP.getAsString(DB.MATH_STR) != null && TMP.getAsString(DB.MATH_ANS) != null) {
+               res_str = TMP.getAsString(DB.MATH_STR) + "=" + TMP.getAsString(DB.MATH_ANS);
+               print_list.add(res_str);
+            } else {
+               print_list.add(Content.getString(R.string.emptyHistory));
+            }
+         }
+         ArrayAdapter<String> adapter = new ArrayAdapter<String>(Content, android.R.layout.simple_list_item_1, print_list);
+         historyList.setAdapter(adapter);
+	}
+
+   /////////////////////////////////////////////  WARNING
+   /////////////////////////////////////////////  WARNING
+   /////////////////////////////////////////////  WARNING
+   /////////////////////////////////////////////  WARNING
+   /////////////////////////////////////////////  WARNING
+	public void initHistoryList(int num) {
+      Log.v("Root"," initHistoryList");
+		if(last_math_str.empty()) {
+			String query = "" +
+				"SELECT "+ DB.MATH_STR +"," + DB.MATH_ANS + " " +
+				"FROM "+ DB.TABLE_NAME_MATH_HISTORY + " " +
+				"ORDER BY " + DB.MATH_CREATE + " DESC" + " " +
+				"LIMIT "+ num + ""
+			;
+			List<ContentValues> list = db_read.Query(
+                 query,
+                 new String[] {DB.MATH_STR, DB.MATH_ANS},
+                 new String[] {"String", "String"}
+         );
+         Log.v("Root"," initHistoryList next");
+			int count = list.size();
+			for(int i = 0; i < count; ++i) {
+				last_math_str.add(list.get(i).getAsString(DB.MATH_STR));
+			}
+		}
+	}
+	
+}

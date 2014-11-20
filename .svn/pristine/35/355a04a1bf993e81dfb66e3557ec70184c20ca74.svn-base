@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="app_name">Varel Калькулятор</string>
+   <string name="app_name_abr">VК</string>
+    <string name="emptyHistory">Ваша история пуста!</string>
+   <string name="buttonClear">Очистить</string>
+</resources>

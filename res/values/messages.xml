@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+   <string name="word_error">ERROR</string>
+   <string name="error_format">Error format!</string>
+   <string name="error_with_operator">Error with operator!</string>
+   <string name="error_with_brackets">Error with brackets!</string>
+
+   <string name="ms_save_result">Result is saved.</string>
+   <string name="mc_clear_result">The saved result a deleted.</string>
+   <string name="mr_saved_result">The saved result is read.</string>
+   <string name="mr_read_empty">History is empty.</string>
+
+
+
+</resources>

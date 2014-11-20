@@ -1,0 +1,562 @@
+package com.varel.calculator;
+
+import java.util.ArrayList;
+import java.util.List;
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.text.InputType;
+import android.view.*;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.varel.calculator.DB.DB;
+import com.varel.calculator.DB.Write.DBWrite;
+import com.varel.calculator.MathCalculator.Calculator;
+
+
+public class AndriodCalculatorActivity<TabsAdapter> extends Activity implements OnClickListener, OnLongClickListener, OnItemClickListener {
+
+	public static final int ID_SET_ANS = 101; 
+	public static final int ID_SET_MATH_STR = 102;
+	public static final int ID_ADD_MATH_STR = 103;
+	public static final int ID_CLEAR_BUTTN_OK = 104;
+	public static final int ID_CLEAR_BUTTN_CANCEL = 105;
+	public static String menu_math_str = "";
+	public static String menu_math_ans = "";
+	
+    Calculator WorkSpace;
+    ViewPager viewPager;
+	
+	private String MS = "";
+	
+	ViewPager mViewPager;
+    TabsAdapter mTabsAdapter;
+   
+    // list function
+    private Button buttonExp;
+    private Button buttonSin;
+    private Button buttonAsin;
+    private Button buttonCos;
+    private Button buttonAcos;
+    private Button buttonTan;
+    private Button buttonAtan;
+    private Button buttonLog;
+    private Button buttonLn;
+    private Button buttonLg;
+    //finish list function
+    
+	// central Keyboard
+	private EditText editText;
+	private TextView textViewResult;
+	private Button buttonC;
+	private Button buttonDelC;
+	private Button button0;
+	private Button button1;
+	private Button button2;
+	private Button button3;
+	private Button button4;
+	private Button button5;
+	private Button button6;
+	private Button button7;
+	private Button button8;
+	private Button button9;
+	
+	private Button buttonMS;
+	private Button buttonMR;
+	private Button buttonMC;
+	private Button buttonStep;
+	private Button buttonDiv;
+	private Button buttonMult;
+	private Button buttonPlus;
+	private Button buttonMinus;
+	private Button buttonBracket;
+	private Button buttonPoint;
+	//end central KeyBoard
+	
+	// history list
+	private ListView history_list;
+	private Button buttonClearDB;
+	// end history list
+
+	private DBWrite db_write;
+
+   @Override
+   public void onCreate(Bundle savedInstanceState) {
+    	super.onCreate(savedInstanceState);
+      requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+      WorkSpace = new Calculator(this);
+      db_write = new DBWrite(this);
+
+      viewPager = new ViewPager(this);
+      //Menu setting
+        
+ 		LayoutInflater inflater = LayoutInflater.from(this);
+      List<View> pages = new ArrayList<View>();
+        
+        
+      View page = inflater.inflate(R.layout.function_list, null);
+      this.variable(page, "function");
+      pages.add(page);
+        
+      page = inflater.inflate(R.layout.main, null);
+      this.variable(page, "index");
+      pages.add(page);
+        
+      page = inflater.inflate(R.layout.history_list, null);
+      this.variable(page, "history");
+      pages.add(page);
+
+      page = inflater.inflate(R.layout.about_us, null);
+      this.variable(page, "about_us");
+      pages.add(page);
+        
+        
+      SamplePagerAdapter pagerAdapter = new SamplePagerAdapter(pages);
+        
+      viewPager.setAdapter(pagerAdapter);
+      viewPager.setCurrentItem(1);
+        
+      setContentView(viewPager);
+
+      String res = WorkSpace.ans(editText.getText().toString(), editText);
+ 		textViewResult.setText(res);
+
+ 	   WorkSpace.initHistoryList(10);
+ 	   WorkSpace.getHistoryList(history_list, 100);
+
+   }
+   public void onStart(Bundle savedInstanceState) {
+    	
+   }
+   public void onPause(Bundle savedInstanceState) {
+    	
+   }
+   public void onResume(Bundle savedInstanceState) {
+    	
+   }
+   public void onRestart(Bundle savedInstanceState) {
+    	
+   }
+   public void onStop(Bundle savedInstanceState) {
+    	
+   }
+    
+
+   public void onClick(View v) {
+      boolean canAnswer = true;
+      boolean canSaveToHistory = false;
+      String saveMathStr = "";
+      int SelectStart = editText.getSelectionStart();
+      int SelectEnd = editText.getSelectionEnd();
+      String str = editText.getText().toString();
+      editText.setError(null);
+      switch (v.getId()) {
+         case R.id.buttonC:
+            saveMathStr = editText.getText().toString();
+            editText.setText("");
+            canSaveToHistory = true;
+            break;
+         case R.id.buttonDelc:
+            if(SelectStart > 0){
+               if(SelectStart == SelectEnd)
+                  editText.setText(str.substring(0,SelectStart-1) + str.substring(SelectStart,str.length()));
+               else
+                  editText.setText(str.substring(0,SelectStart-1) + str.substring(SelectEnd,str.length()));
+               editText.setSelection(SelectStart-1);
+            }else if(SelectStart == 0 && SelectStart != SelectEnd){
+               editText.setText(str.substring(SelectEnd,str.length()));
+               editText.setSelection(0);
+            }
+            break;
+         case R.id.button0:
+            this.AddChar("0", SelectStart, SelectEnd);
+           break;
+         case R.id.button1:
+            this.AddChar("1", SelectStart, SelectEnd);
+           break;
+         case R.id.button2:
+            this.AddChar("2", SelectStart, SelectEnd);
+           break;
+         case R.id.button3:
+            this.AddChar("3", SelectStart, SelectEnd);
+           break;
+         case R.id.button4:
+            this.AddChar("4", SelectStart, SelectEnd);
+           break;
+         case R.id.button5:
+            this.AddChar("5", SelectStart, SelectEnd);
+           break;
+         case R.id.button6:
+            this.AddChar("6", SelectStart, SelectEnd);
+           break;
+         case R.id.button7:
+            this.AddChar("7", SelectStart, SelectEnd);
+           break;
+         case R.id.button8:
+            this.AddChar("8", SelectStart, SelectEnd);
+           break;
+         case R.id.button9:
+            this.AddChar("9", SelectStart, SelectEnd);
+           break;
+
+         case R.id.buttonMS:
+            if(!editText.getText().toString().isEmpty()) {
+               WorkSpace.saveToHistory(
+                       editText.getText().toString(),
+                       Double.parseDouble(textViewResult.getText().toString())
+               );
+               MessageView.showInfo(this, "MS", MessageView.LENGTH_SHORT);
+               MS = textViewResult.getText().toString().trim();
+            }
+           break;
+         case R.id.buttonMC:
+            MessageView.showInfo(this, "MC", MessageView.LENGTH_SHORT);
+            MS = "";
+           break;
+			case R.id.buttonMR:
+            MessageView.showInfo(this, "MR", MessageView.LENGTH_SHORT);
+				this.AddChar(MS, SelectStart, SelectEnd);
+			   break;
+			
+			case R.id.buttonStep:
+				this.AddChar("^", SelectStart, SelectEnd);
+			   break;
+			case R.id.buttonMult:
+				this.AddChar("*", SelectStart, SelectEnd);
+			   break;
+			case R.id.buttonDiv:
+				this.AddChar("/", SelectStart, SelectEnd);
+			   break;
+			case R.id.buttonPlus:
+				this.AddChar("+", SelectStart, SelectEnd);
+			   break;
+			case R.id.buttonMinus:
+				this.AddChar("-", SelectStart, SelectEnd);
+			   break;
+			case R.id.buttonBracket:
+				if(SelectStart == SelectEnd) {
+					this.AddChar("()", SelectStart, SelectEnd);
+					editText.setSelection(editText.getSelectionEnd() - 1);
+               canAnswer = false;
+				} else {
+					this.AddChar("(", SelectStart, SelectStart);
+					this.AddChar(")", SelectEnd+1, SelectEnd+1);
+				}
+			  break;
+			case R.id.buttonPoint:
+				this.AddChar(".", SelectStart, SelectEnd);
+			  break;
+			case R.id.buttonLog:
+				this.AddFun("log", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonLg:
+				this.AddFun("lg", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonLn:
+				this.AddFun("ln", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonSin:
+				this.AddFun("sin", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonAsin:
+				this.AddFun("asin", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonCos:
+				this.AddFun("cos", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonAcos:
+				this.AddFun("acos", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonTan:
+				this.AddFun("tan", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonAtan:
+				this.AddFun("atan", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonExp:
+				this.AddFun("exp", SelectStart, SelectEnd);
+            canAnswer = false;
+			  break;
+			case R.id.buttonClearDB:
+	    		openContextMenu(buttonClearDB);
+			  break;
+      }
+
+      if(viewPager.getCurrentItem() == 0){
+         viewPager.setCurrentItem(1);
+      }
+
+      if(canAnswer) {
+         String res;
+         if(canSaveToHistory) {
+            if(!saveMathStr.isEmpty()) {
+               res = WorkSpace.ans(saveMathStr, editText);
+               editText.setText("");
+               textViewResult.setText("0.0");
+               if(res != "ERROR") {
+                  WorkSpace.saveToHistory(
+                          saveMathStr,
+                          Double.parseDouble(res)
+                  );
+                  WorkSpace.getHistoryList(history_list, 100);
+               }
+            }
+         } else {
+            res = WorkSpace.ans(editText.getText().toString(), editText);
+            if(res != "ERROR") {
+               textViewResult.setText(res);
+            } else {
+               textViewResult.setText("0.0");
+            }
+         }
+      }
+   }
+    
+   public boolean onLongClick(View v) {
+    	switch (v.getId()) {
+    	   case R.id.editText:
+    		   if(WorkSpace.saveToHistory(editText.getText().toString(), Double.parseDouble(textViewResult.getText().toString()))) {
+    			   WorkSpace.getHistoryList(history_list, 100);
+    			   Toast.makeText(this, "Save result.", Toast.LENGTH_SHORT ).show();
+    		   }
+    		   break;
+    	}
+    	return true;
+   }
+    
+   public boolean onCreateOptionsMenu(Menu menu) {
+      return super.onCreateOptionsMenu(menu);
+   }
+      
+
+     
+   void variable(View page, String view_page) {
+      if(view_page == "index") {
+	      editText = (EditText) page.findViewById(R.id.editText);
+	      textViewResult = (TextView) page.findViewById(R.id.textViewResult);
+	    	buttonC = (Button) page.findViewById(R.id.buttonC);
+	         
+         //central keyBoard
+         buttonDelC = (Button) page.findViewById(R.id.buttonDelc);
+         button0 = (Button) page.findViewById(R.id.button0);
+         button1 = (Button) page.findViewById(R.id.button1);
+         button2 = (Button) page.findViewById(R.id.button2);
+         button3 = (Button) page.findViewById(R.id.button3);
+         button4 = (Button) page.findViewById(R.id.button4);
+         button5 = (Button) page.findViewById(R.id.button5);
+         button6 = (Button) page.findViewById(R.id.button6);
+         button7 = (Button) page.findViewById(R.id.button7);
+         button8 = (Button) page.findViewById(R.id.button8);
+         button9 = (Button) page.findViewById(R.id.button9);
+
+         buttonMS = (Button) page.findViewById(R.id.buttonMS);
+         buttonMR = (Button) page.findViewById(R.id.buttonMR);
+         buttonMC = (Button) page.findViewById(R.id.buttonMC);
+         //buttonOst = (Button) page.findViewById(R.id.buttonOst);
+         buttonStep = (Button) page.findViewById(R.id.buttonStep);
+         //buttonFact = (Button) page.findViewById(R.id.buttonFact);
+         buttonDiv = (Button) page.findViewById(R.id.buttonDiv);
+         buttonMult = (Button) page.findViewById(R.id.buttonMult);
+         buttonPlus = (Button) page.findViewById(R.id.buttonPlus);
+         buttonMinus = (Button) page.findViewById(R.id.buttonMinus);
+         buttonBracket = (Button) page.findViewById(R.id.buttonBracket);
+         buttonPoint = (Button) page.findViewById(R.id.buttonPoint);
+         //buttonPi = (Button) page.findViewById(R.id.buttonPi);
+         // buttonE = (Button) page.findViewById(R.id.buttonE);
+         // buttonExp = (Button) page.findViewById(R.id.buttonExp);
+         //end central keyBoard
+
+         // On Event
+         editText.setInputType(InputType.TYPE_NULL);
+         editText.setOnLongClickListener(this);
+         buttonC.setOnClickListener(this);
+
+         //central keyBoard for click
+         buttonDelC.setOnClickListener(this);
+         button0.setOnClickListener(this);
+         button1.setOnClickListener(this);
+         button2.setOnClickListener(this);
+         button3.setOnClickListener(this);
+         button3.setOnClickListener(this);
+         button4.setOnClickListener(this);
+         button5.setOnClickListener(this);
+         button6.setOnClickListener(this);
+         button7.setOnClickListener(this);
+         button8.setOnClickListener(this);
+         button9.setOnClickListener(this);
+
+         buttonMS.setOnClickListener(this);
+         buttonMR.setOnClickListener(this);
+         buttonMC.setOnClickListener(this);
+         // buttonOst.setOnClickListener(this);
+         buttonStep.setOnClickListener(this);
+         // buttonFact.setOnClickListener(this);
+         buttonDiv.setOnClickListener(this);
+         buttonMult.setOnClickListener(this);
+         buttonPlus.setOnClickListener(this);
+         buttonMinus.setOnClickListener(this);
+         buttonBracket.setOnClickListener(this);
+         buttonPoint.setOnClickListener(this);
+         // buttonPi.setOnClickListener(this);
+         // buttonE.setOnClickListener(this);
+         // buttonExp.setOnClickListener(this);
+         //end central keyBoard
+    	} else if(view_page == "function") {
+    		buttonExp = (Button) page.findViewById(R.id.buttonExp);
+    		buttonSin = (Button) page.findViewById(R.id.buttonSin);
+    		buttonAsin = (Button) page.findViewById(R.id.buttonAsin);
+    		buttonCos = (Button) page.findViewById(R.id.buttonCos);
+    		buttonAcos = (Button) page.findViewById(R.id.buttonAcos);
+    		buttonTan = (Button) page.findViewById(R.id.buttonTan);
+    		buttonAtan = (Button) page.findViewById(R.id.buttonAtan);
+    		buttonLog = (Button) page.findViewById(R.id.buttonLog);
+    		buttonLg = (Button) page.findViewById(R.id.buttonLg);
+    		buttonLn = (Button) page.findViewById(R.id.buttonLn);
+    		
+    		buttonExp.setOnClickListener(this);
+    		buttonSin.setOnClickListener(this);
+    		buttonAsin.setOnClickListener(this);
+    		buttonCos.setOnClickListener(this);
+    		buttonAcos.setOnClickListener(this);
+    		buttonTan.setOnClickListener(this);
+    		buttonAtan.setOnClickListener(this);
+    		buttonLog.setOnClickListener(this);
+    		buttonLg.setOnClickListener(this);
+    		buttonLn.setOnClickListener(this);
+    	 } else if(view_page == "history") {
+    		history_list = (ListView)page.findViewById(R.id.listViewR);
+    		buttonClearDB = (Button) page.findViewById(R.id.buttonClearDB);
+    		
+    		buttonClearDB.setOnClickListener(this);
+    		buttonClearDB.setOnCreateContextMenuListener(this);
+    		history_list.setOnItemClickListener(this);
+    		history_list.setOnCreateContextMenuListener(this);
+    	 }
+     }
+	 
+	public void onItemClick(AdapterView adapterView, View view, int position, long id) {
+		String value = ((TextView) view).getText().toString();
+		if(value.indexOf("=") != -1) {
+			menu_math_ans = value.substring(value.indexOf("=")+1);
+			menu_math_str = value.substring(0, value.indexOf("="));
+			openContextMenu(history_list);
+		}
+   }
+	 
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+      switch (v.getId()) {
+         case R.id.listViewR :
+            menu.add(Menu.NONE, ID_SET_MATH_STR, Menu.NONE, "Заменить формулу");
+            menu.add(Menu.NONE, ID_ADD_MATH_STR, Menu.NONE, "Вставить формулу");
+            menu.add(Menu.NONE, ID_SET_ANS, Menu.NONE, "Вставить ответ");
+            break;
+         case R.id.buttonClearDB :
+            menu.add(Menu.NONE, ID_CLEAR_BUTTN_OK, Menu.NONE, "Ok");
+            menu.add(Menu.NONE, ID_CLEAR_BUTTN_CANCEL, Menu.NONE, "Cancel");
+            break;
+	   }
+	}
+	 
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+	   String res = "0.0";
+		int SelectStart = 0;
+	 	switch (item.getItemId()) {
+	 	   case ID_SET_MATH_STR:
+	 	    	editText.setText(menu_math_str);
+	 	    	res = WorkSpace.ans(editText.getText().toString(), editText);
+	 	 		textViewResult.setText(res);
+	 	 		viewPager.setCurrentItem(1); 
+	 		    break;
+	 	   case ID_ADD_MATH_STR:
+	 	    	SelectStart = editText.getSelectionStart();
+	 	        AddChar(menu_math_str, SelectStart, SelectStart);
+	 	        res = WorkSpace.ans(editText.getText().toString(), editText);
+	 	 		  textViewResult.setText(res);
+	 	        viewPager.setCurrentItem(1); 
+	 		    break;
+	 	   case ID_SET_ANS:
+	 	    	SelectStart = editText.getSelectionStart();
+            if(menu_math_ans.indexOf("E") != -1) {
+               menu_math_ans = menu_math_ans.replace("E", "*10^(") + ")";
+            }
+	 	      AddChar(menu_math_ans, SelectStart, SelectStart);
+	 	      res = WorkSpace.ans(editText.getText().toString(), editText);
+	 	 		textViewResult.setText(res);
+	 	      viewPager.setCurrentItem(1);
+	 		   break;
+	 		    
+	 	   case ID_CLEAR_BUTTN_OK:
+	 		   db_write.Delete(DB.TABLE_NAME_MATH_HISTORY);
+			   WorkSpace.getHistoryList(history_list, 100);
+				closeContextMenu();
+	 		    break;
+	 		    
+	 	   case ID_CLEAR_BUTTN_CANCEL:
+	 		 	closeContextMenu();
+	 		    break;
+	 		   
+           default:
+	 	    	return super.onContextItemSelected(item);
+	    }
+
+	    return true;
+     }
+
+	String AddChar(String ch,int Start,int End) {
+     	String str = editText.getText().toString();
+     	if(Start > 0) {
+         	if(Start == End)
+         		editText.setText(str.substring(0,Start) + ch + str.substring(Start,str.length()));
+         	else
+         		editText.setText(str.substring(0,Start)  + ch + str.substring(End,str.length()));
+         	editText.setSelection(Start+ch.length());
+     	} else if(Start == 0 && Start == End) {
+     		editText.setText(ch + str.substring(Start,str.length()));
+     		editText.setSelection(ch.length());
+     	} else if(Start == 0 && Start != End) {
+     		editText.setText(ch + str.substring(End,str.length()));
+     		editText.setSelection(ch.length());
+     	}
+ 		return str;
+    }
+
+ 	String AddFun(String nameFun,int Start,int End) {
+ 	 	String str = editText.getText().toString();
+ 	 	if(Start > 0) {
+ 	     	if(Start == End) {
+ 	     		editText.setText(str.substring(0, Start) + nameFun +"()" + str.substring(Start,str.length()));
+ 	     		editText.setSelection(Start+nameFun.length()+str.substring(Start,End).length()+1);
+ 	     	} else {
+ 	     		editText.setText(str.substring(0, Start)  + nameFun + "(" + str.substring(Start,End) + ")" + str.substring(End,str.length()));
+ 	     		editText.setSelection(Start+nameFun.length()+str.substring(Start,End).length()+2);
+ 	     	}
+ 	 	} else if(Start == 0 && Start == End) {
+ 	 		editText.setText(nameFun + "()" + str.substring(Start,str.length()));
+ 	 		editText.setSelection(nameFun.length()+1);
+ 	 	} else if(Start == 0 && Start != End) {
+ 	 		editText.setText(nameFun + "(" + str.substring(0, End) + ")" + str.substring(End,str.length()));
+ 	 		editText.setSelection(nameFun.length()+str.substring(Start,End).length()+2);
+ 	 	}
+ 	   return str;
+ 	 }
+}

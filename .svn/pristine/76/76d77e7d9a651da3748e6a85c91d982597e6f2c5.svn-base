@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+   <string name="word_error">Ошибка</string>
+   <string name="error_format">Ошибка формата!</string>
+   <string name="error_with_operator">Ошибка с оператором!</string>
+   <string name="error_with_brackets">Ошибка со скобками!</string>
+
+   <string name="ms_save_result">Результат сохранен.</string>
+   <string name="mc_clear_result">Сохраннеый результат удален.</string>
+   <string name="mr_read_result">Сохраннеый результат извлечен.</string>
+   <string name="mr_read_empty">История пуста.</string>
+
+
+</resources>

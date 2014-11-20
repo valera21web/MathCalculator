@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate-entitymanager-4.1.10.Final.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate-jpa-2.0-api-1.0.1.Final.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/mysql-connector-java-5.1.24-bin.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/antlr-2.7.7.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/classmate-0.5.4.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/commons-collections-3.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/dom4j-1.6.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate-core-4.0.0.CR1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/jandex-1.0.0.Beta7.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/javassist-3.12.0.GA.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/jta-1.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/slf4j-api-1.7.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/slf4j-simple-1.7.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate-commons-annotations-4.0.1.Final.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate/lib/required/jboss-logging-3.1.0.GA.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate/lib/required/jboss-transaction-api_1.1_spec-1.0.0.Final.jar!/" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/../practice-v1-2/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../practice-v1-2/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../practice-v1-2">
+      <sourceFolder url="file://$MODULE_DIR$/../practice-v1-2/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="jdk" jdkName="JavaSE-1.7" jdkType="JavaSDK" />
+    <orderEntry type="module-library">
+      <library name="hibernate-entitymanager-4.1.10.Final.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate-entitymanager-4.1.10.Final.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hibernate-jpa-2.0-api-1.0.1.Final.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate-jpa-2.0-api-1.0.1.Final.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="mysql-connector-java-5.1.24-bin.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/mysql-connector-java-5.1.24-bin.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="antlr-2.7.7.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/antlr-2.7.7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="classmate-0.5.4.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/classmate-0.5.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-collections-3.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/commons-collections-3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="dom4j-1.6.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/dom4j-1.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hibernate-core-4.0.0.CR1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate-core-4.0.0.CR1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jandex-1.0.0.Beta7.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/jandex-1.0.0.Beta7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="javassist-3.12.0.GA.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/javassist-3.12.0.GA.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jta-1.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/jta-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="slf4j-api-1.7.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/slf4j-api-1.7.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="slf4j-simple-1.7.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/slf4j-simple-1.7.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hibernate-commons-annotations-4.0.1.Final.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate-commons-annotations-4.0.1.Final.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-logging-3.1.0.GA.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate/lib/required/jboss-logging-3.1.0.GA.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss-transaction-api_1.1_spec-1.0.0.Final.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../practice-v1-2/lib/hibernate/lib/required/jboss-transaction-api_1.1_spec-1.0.0.Final.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
+
