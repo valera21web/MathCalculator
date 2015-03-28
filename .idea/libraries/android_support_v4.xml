@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="android-support-v4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Google Диск/Projects/Java/AppCalculator1.0/libs/android-support-v4.jar!/" />
+      <root url="jar://D:/System/JAVA/AndroidSDK/android-support-v4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
